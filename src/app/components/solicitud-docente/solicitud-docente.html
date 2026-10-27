@@ -1,0 +1,34 @@
+<div class="container">
+  <h2>Calificación de Recuperación (Docente)</h2>
+  <p class="subtitle">Aplicando topes del Acuerdo 00082-A</p>
+
+  <form (ngSubmit)="calificarSolicitud()">
+    
+    <div class="form-group">
+      <label>ID de la Solicitud:</label>
+      <input type="number" [(ngModel)]="calificacion.idSolicitud" name="idSolicitud" required>
+    </div>
+
+    <div class="form-group">
+      <label>Nota de la Evaluación (0 a 10):</label>
+      <input type="number" step="0.01" [(ngModel)]="calificacion.notaEvaluacion" name="notaEvaluacion" required>
+    </div>
+
+    <div class="form-group">
+      <label>Comentario del Docente:</label>
+      <input type="text" [(ngModel)]="calificacion.comentario" name="comentario" required>
+    </div>
+
+    <button type="submit" [disabled]="cargando" style="background-color: #28a745;">
+      {{ cargando ? 'Calificando...' : 'Calificar Solicitud' }}
+    </button>
+  </form>
+
+  <div *ngIf="mensajeExito" class="alert success">
+    ✅ {{ mensajeExito }}<br>
+    <strong>Nota Final Aplicada: {{ notaFinal }}</strong>
+  </div>
+  <div *ngIf="mensajeError" class="alert error">
+    ❌ {{ mensajeError }}
+  </div>
+</div>

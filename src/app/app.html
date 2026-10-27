@@ -1,0 +1,17 @@
+<nav style="text-align: center; margin-top: 20px;">
+  <button (click)="cambiarPantalla('estudiante')" 
+          [style.background-color]="pantallaActual === 'estudiante' ? '#0056b3' : '#ccc'" 
+          style="padding: 10px 20px; margin: 0 10px; border: none; color: white; border-radius: 5px; cursor: pointer;">
+    Soy Estudiante
+  </button>
+  <button (click)="cambiarPantalla('docente')" 
+          [style.background-color]="pantallaActual === 'docente' ? '#0056b3' : '#ccc'" 
+          style="padding: 10px 20px; margin: 0 10px; border: none; color: white; border-radius: 5px; cursor: pointer;">
+    Soy Docente
+  </button>
+</nav>
+
+<div [ngSwitch]="pantallaActual">
+  <app-solicitud-estudiante *ngSwitchCase="'estudiante'"></app-solicitud-estudiante>
+  <app-solicitud-docente *ngSwitchCase="'docente'"></app-solicitud-docente>
+</div>

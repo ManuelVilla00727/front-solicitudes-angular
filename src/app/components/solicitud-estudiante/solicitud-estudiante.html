@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>Solicitud de Recuperación Académica</h2>
+  <p class="subtitle">Según el Acuerdo Ministerial 00082-A</p>
+
+  <form (ngSubmit)="crearSolicitud()">
+    
+    <div class="form-group">
+      <label>ID del Estudiante:</label>
+      <input type="number" [(ngModel)]="solicitud.estudianteId" name="estudianteId" required>
+    </div>
+
+    <div class="form-group">
+      <label>ID de la Asignatura:</label>
+      <input type="number" [(ngModel)]="solicitud.asignaturaId" name="asignaturaId" required>
+    </div>
+
+    <div class="form-group">
+      <label>Nota Obtenida (0.01 a 8.99):</label>
+      <input type="number" step="0.01" [(ngModel)]="solicitud.notaOriginal" name="notaOriginal" required>
+      <small>Refuerzo: 0.01 - 6.99 | Mejora: 7.01 - 8.99</small>
+    </div>
+
+    <button type="submit" [disabled]="cargando">
+      {{ cargando ? 'Enviando...' : 'Crear Solicitud' }}
+    </button>
+  </form>
+
+  <!-- Mensajes de respuesta -->
+  <div *ngIf="mensajeExito" class="alert success">
+    ✅ {{ mensajeExito }}
+  </div>
+  <div *ngIf="mensajeError" class="alert error">
+    ❌ {{ mensajeError }}
+  </div>
+</div>
