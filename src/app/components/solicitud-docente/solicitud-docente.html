@@ -1,34 +1,62 @@
-<div class="container">
-  <h2>Calificación de Recuperación (Docente)</h2>
-  <p class="subtitle">Aplicando topes del Acuerdo 00082-A</p>
+<div class="container-docente">
+  <h2>Panel del Docente</h2>
+  <p class="subtitle">Revisión y Calificación de Solicitudes</p>
 
-  <form (ngSubmit)="calificarSolicitud()">
+  <button (click)="cargarPendientes()" class="btn-refresh">🔄 Actualizar Lista</button>
+
+  <table class="tabla-solicitudes" *ngIf="solicitudes.length > 0; else noData">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Estudiante</th>
+        <th>Asignatura</th>
+        <th>ID Actividad</th>
+        <th>Nombre Actividad</th>
+        <th>Nota Original</th>
+        <th>Archivo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sol of solicitudes">
+        <td>{{ sol.id }}</td>
+        <td>{{ sol.estudianteId }}</td>
+        <td>{{ sol.asignaturaId }}</td>
+        <td>{{ sol.actividadId }}</td>
+        <td>{{ sol.actividadRecuperar }}</td>
+        <td>{{ sol.notaObtenidaOriginal }}</td>
+        <td>
+          <span *ngIf="sol.rutaArchivoSolicitud; else noFile">📄 {{ sol.rutaArchivoSolicitud }}</span>
+          <ng-template #noFile><span class="text-muted">Sin archivo</span></ng-template>
+        </td>
+        <td>
+          <button class="btn-calificar" (click)="abrirCalificacion(sol)">Calificar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <ng-template #noData>
+    <p class="text-center text-muted">No hay solicitudes pendientes por revisar.</p>
+  </ng-template>
+
+  <!-- Panel de Calificación -->
+  <div class="calificacion-panel" *ngIf="solicitudSeleccionada">
+    <h3>Calificando Solicitud #{{ solicitudSeleccionada.id }}</h3>
+    <p>Estudiante ID: {{ solicitudSeleccionada.estudianteId }} | Actividad: {{ solicitudSeleccionada.actividadRecuperar }}</p>
     
     <div class="form-group">
-      <label>ID de la Solicitud:</label>
-      <input type="number" [(ngModel)]="calificacion.idSolicitud" name="idSolicitud" required>
-    </div>
-
-    <div class="form-group">
       <label>Nota de la Evaluación (0 a 10):</label>
-      <input type="number" step="0.01" [(ngModel)]="calificacion.notaEvaluacion" name="notaEvaluacion" required>
+      <input type="number" step="0.01" [(ngModel)]="calificacion.notaEvaluacion" name="notaEvaluacion">
     </div>
-
     <div class="form-group">
-      <label>Comentario del Docente:</label>
-      <input type="text" [(ngModel)]="calificacion.comentario" name="comentario" required>
+      <label>Comentario:</label>
+      <input type="text" [(ngModel)]="calificacion.comentario" name="comentario">
     </div>
-
-    <button type="submit" [disabled]="cargando" style="background-color: #28a745;">
-      {{ cargando ? 'Calificando...' : 'Calificar Solicitud' }}
-    </button>
-  </form>
-
-  <div *ngIf="mensajeExito" class="alert success">
-    ✅ {{ mensajeExito }}<br>
-    <strong>Nota Final Aplicada: {{ notaFinal }}</strong>
+    <button class="btn-guardar" (click)="calificarSolicitud()">Guardar Calificación</button>
+    <button class="btn-cancelar" (click)="solicitudSeleccionada = null">Cancelar</button>
   </div>
-  <div *ngIf="mensajeError" class="alert error">
-    ❌ {{ mensajeError }}
-  </div>
+
+  <div *ngIf="mensajeExito" class="alert success">✅ {{ mensajeExito }} <br> <strong>Nota Final: {{ notaFinal }}</strong></div>
+  <div *ngIf="mensajeError" class="alert error">❌ {{ mensajeError }}</div>
 </div>

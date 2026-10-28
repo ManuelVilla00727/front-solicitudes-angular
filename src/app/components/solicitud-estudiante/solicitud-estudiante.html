@@ -14,10 +14,28 @@
       <input type="number" [(ngModel)]="solicitud.asignaturaId" name="asignaturaId" required>
     </div>
 
+    <!-- ID DE LA ACTIVIDAD -->
+    <div class="form-group">
+      <label>ID de la Actividad:</label>
+      <input type="number" [(ngModel)]="solicitud.actividadId" name="actividadId" placeholder="Ej: 201" required>
+    </div>
+
+    <!-- NOMBRE DE LA ACTIVIDAD -->
+    <div class="form-group">
+      <label>Nombre de la Actividad:</label>
+      <input type="text" [(ngModel)]="solicitud.actividadRecuperar" name="actividadRecuperar" placeholder="Ej: Lección escrita" required>
+    </div>
+
     <div class="form-group">
       <label>Nota Obtenida (0.01 a 8.99):</label>
       <input type="number" step="0.01" [(ngModel)]="solicitud.notaOriginal" name="notaOriginal" required>
       <small>Refuerzo: 0.01 - 6.99 | Mejora: 7.01 - 8.99</small>
+    </div>
+
+    <div class="form-group">
+      <label>Subir Solicitud (PDF):</label>
+      <input type="file" (change)="onFileSelected($event)" accept=".pdf,.doc,.docx">
+      <small>Adjunta tu solicitud firmada.</small>
     </div>
 
     <button type="submit" [disabled]="cargando">
@@ -25,7 +43,6 @@
     </button>
   </form>
 
-  <!-- Mensajes de respuesta -->
   <div *ngIf="mensajeExito" class="alert success">
     ✅ {{ mensajeExito }}
   </div>

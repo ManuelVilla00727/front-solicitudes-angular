@@ -6,28 +6,44 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-solicitud-estudiante',
   standalone: true,
-  imports: [FormsModule, CommonModule], // Importante para formularios y *ngIf
+  imports: [FormsModule, CommonModule],
   templateUrl: './solicitud-estudiante.html',
   styleUrls: ['./solicitud-estudiante.css']
 })
 export class SolicitudEstudianteComponent {
   
-  // Objeto que se envía al backend
+  // Objeto con todos los campos, incluyendo los nuevos
   solicitud = {
     estudianteId: 1,
     asignaturaId: 101,
-    notaOriginal: 5.50
+    actividadId: 201,               // <-- NUEVO CAMPO
+    notaOriginal: 5.50,
+    actividadRecuperar: '',         // Nombre de la actividad
+    rutaArchivoSolicitud: ''
   };
 
   cargando = false;
   mensajeExito = '';
   mensajeError = '';
+  nombreArchivo = '';
 
-  // URL de tu microservicio en Java (Spring Boot)
-private apiUrl = 'http://ms-solicitudes-env-v1.eba-ep3zt4un.us-east-1.elasticbeanstalk.com/api/solicitudes';
+  // URL de tu microservicio en la nube (AWS Elastic Beanstalk)
+  private apiUrl = 'http://ms-solicitudes-env-v1.eba-ep3zt4un.us-east-1.elasticbeanstalk.com/api/solicitudes';
 
   constructor(private http: HttpClient) {}
 
+  // Método para capturar el archivo seleccionado
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.nombreArchivo = file.name;
+      // Simulamos la subida guardando el nombre del archivo.
+      // En producción, aquí subiríamos el archivo a AWS S3.
+      this.solicitud.rutaArchivoSolicitud = this.nombreArchivo;
+    }
+  }
+
+  // Método para enviar la solicitud al backend
   crearSolicitud() {
     this.cargando = true;
     this.mensajeExito = '';
@@ -40,7 +56,6 @@ private apiUrl = 'http://ms-solicitudes-env-v1.eba-ep3zt4un.us-east-1.elasticbea
       },
       error: (error) => {
         this.cargando = false;
-        // Aquí capturamos los errores de límites o rangos del Ministerio
         if (error.error && error.error.error) {
           this.mensajeError = error.error.error;
         } else {

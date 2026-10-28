@@ -1,31 +1,68 @@
-.container {
-  max-width: 500px;
+.container-docente {
+  max-width: 900px;
   margin: 40px auto;
   padding: 20px;
-  background: #f9f9f9;
+  background: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   font-family: Arial, sans-serif;
 }
 
-h2 { text-align: center; color: #333; }
+h2 { text-align: center; color: #333; margin-bottom: 5px; }
 .subtitle { text-align: center; color: #666; margin-bottom: 20px; font-size: 0.9em; }
+
+/* Botón de Actualizar */
+.btn-refresh {
+  background-color: #6c757d; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; margin-bottom: 15px;
+}
+
+/* Tabla */
+.tabla-solicitudes {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.tabla-solicitudes th, .tabla-solicitudes td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.tabla-solicitudes th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.text-muted { color: #999; font-size: 0.9em; }
+.text-center { text-align: center; }
+
+/* Botones de la tabla */
+.btn-calificar {
+  background-color: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;
+}
+
+/* Panel de calificación */
+.calificacion-panel {
+  background: #f8f9fa;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 20px;
+}
 
 .form-group { margin-bottom: 15px; }
 label { display: block; font-weight: bold; margin-bottom: 5px; }
 input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
 
-button {
-  width: 100%;
-  padding: 10px;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 1.1em;
-  cursor: pointer;
+.btn-guardar {
+  background-color: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: bold;
 }
-button:disabled { background-color: #ccc; }
+.btn-cancelar {
+  background-color: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-left: 10px;
+}
 
+/* Alertas */
 .alert { padding: 10px; margin-top: 15px; border-radius: 4px; text-align: center; }
 .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
 .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
